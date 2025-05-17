@@ -9,6 +9,11 @@ namespace DAL.Interfaces
 {
     public interface IStudentFeatures
     {
-        List<Course> SeeEnrollments(int id);
+        List<Enrollment> SeeEnrollments(int id);
+        List<object> Dashoard(int id);
+        void ExportStudentsToPdf(string filePath);
+
+        List<Student> SearchByName(string name);
+
     }
 }

@@ -2,6 +2,7 @@
 using BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -57,6 +58,44 @@ namespace AppLayer.Controllers
         {
             var res = StudentService.SeeEnrollments(id);
             return Request.CreateResponse(HttpStatusCode.OK, res);
+        }
+
+        [HttpGet]
+        [Route("api/student/dashboard/{id}")]
+        public HttpResponseMessage GetStudentDashboard(int id)
+        {
+              var dashboard = StudentService.Dashboard(id);
+              return Request.CreateResponse(HttpStatusCode.OK, dashboard);
+            
+        }
+
+        [HttpGet]
+        [Route("api/student/exportpdf")]
+        public HttpResponseMessage ExportStudentsToPdf()
+        {
+            var filePath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Students2.pdf"), "Students2.pdf");
+
+            try
+            {
+                if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                    StudentService.ExportStudentsToPdf(filePath);
+
+                return Request.CreateResponse(HttpStatusCode.OK, new { FilePath = filePath });
+            }
+            catch (System.Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/students/SearchByName/{name}")]
+        public HttpResponseMessage SearchByName(string name)
+        {
+            var data = StudentService.SearchByName(name);
+            return Request.CreateResponse(HttpStatusCode.OK, data);
         }
 
 

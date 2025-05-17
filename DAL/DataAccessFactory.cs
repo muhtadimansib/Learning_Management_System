@@ -35,5 +35,10 @@ namespace DAL
         {
             return new StudentRepos();
         }
+
+        public static ICourseFeatures CourseFeatures()
+        {
+            return new CourseRepo();
+        }
     }
 }

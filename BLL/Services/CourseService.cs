@@ -50,5 +50,12 @@ namespace BLL.Services
             var res = repo.Delete(id);
             return res ? "Deleted" : "Deletion Failed";
         }
+
+        public static List<CourseDTO> GetCoursesSortedByDuration()
+        {
+            var repo = DataAccessFactory.CourseFeatures();
+            return GetMapper().Map<List<CourseDTO>>(repo.GetCoursesSortedByDuration());
+
+        }
     }
 }

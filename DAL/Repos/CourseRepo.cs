@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class CourseRepo: Repo,IRepo<Course, int, Course>
+    internal class CourseRepo: Repo,IRepo<Course, int, Course>, ICourseFeatures
     {
         public Course Create(Course obj)
         {
@@ -32,6 +32,11 @@ namespace DAL.Repos
         public List<Course> Get()
         {
             return db.Courses.ToList();
+        }
+
+        public List<Course> GetCoursesSortedByDuration()
+        {
+            return db.Courses.OrderByDescending(c => c.Duration).ToList();
         }
 
         public Course Update(Course obj)

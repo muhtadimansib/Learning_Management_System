@@ -50,5 +50,15 @@ namespace AppLayer.Controllers
             var res = CourseService.Delete(id);
             return Request.CreateResponse(HttpStatusCode.OK, res);
         }
+
+        [HttpGet]
+        [Route("api/Courses/GetCoursesSortedByDuration")]
+        public HttpResponseMessage GetCoursesSortedByDuration()
+        {
+            var res = CourseService.GetCoursesSortedByDuration();
+            return Request.CreateResponse(HttpStatusCode.OK, res);
+        }
+
+
     }
 }

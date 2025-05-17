@@ -18,8 +18,7 @@ namespace BLL.Services
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Student, StudentDTO>();
                 cfg.CreateMap<StudentDTO, Student>();
-                cfg.CreateMap<Course,CourseDTO>();
-                cfg.CreateMap<CourseDTO, Course>();
+                cfg.CreateMap<Enrollment,EnrollmentDTO>();
             });
             return new Mapper(config);
         }
@@ -54,11 +53,30 @@ namespace BLL.Services
             return res ? "Deleted" : "Deletion Failed";
         }
 
-        public static List<CourseDTO> SeeEnrollments(int id)
+        public static List<EnrollmentDTO> SeeEnrollments(int id)
         {
             var repo= DataAccessFactory.StudentFeatures();
-            return GetMapper().Map<List<CourseDTO>>(repo.SeeEnrollments(id));
+            return GetMapper().Map<List<EnrollmentDTO>>(repo.SeeEnrollments(id));
 
         }
+
+        public static List<object> Dashboard(int id)
+        {
+            var repo = DataAccessFactory.StudentFeatures();
+            return repo.Dashoard(id);
+        }
+
+        public static void ExportStudentsToPdf(string filepath)
+        {
+            var repo=DataAccessFactory.StudentFeatures();
+            repo.ExportStudentsToPdf(filepath);
+        }
+
+        public static List<StudentDTO> SearchByName(string name)
+        {
+            var repo = DataAccessFactory.StudentFeatures();
+            return GetMapper().Map<List<StudentDTO>>(repo.SearchByName(name));
+        }
+
     }
 }
